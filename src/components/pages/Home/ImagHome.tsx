@@ -14,7 +14,7 @@ export const ImagHome = () => {
 
   return (
     <SSection>
-      <div>ImagHome</div>
+      
     </SSection>
   );
 };
