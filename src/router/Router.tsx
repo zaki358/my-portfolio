@@ -10,13 +10,13 @@ import { Skill } from "../components/pages/Skill";
 export const Router: React.FC = memo(() => {
   return (
     <Routes>
-      <Route path="/" element={<Header />}>
+      {/* <Route path="/" element={<Header />}> */}
         <Route index element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/skill" element={<Skill />} />
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/contact" element={<Contact />} />
-      </Route>
+      {/* </Route> */}
     </Routes>
   );
 });

@@ -3,8 +3,13 @@
   max-width: 1440px;
 }
 
+@font-face {
+  font-family: sasafude;
+  src: url(../../../public/font/ささふでフォント.ttf);
+}
+
 p {
-  font-family: hot-kointaikk, sans-serif;
+  font-family: sasafude, sans-serif;
   font-weight: 400;
   font-style: normal;
 }
@@ -22,7 +27,7 @@ h5,
 h6,
 p,
 li {
-  font-family: hot-kointaikk, sans-serif;
+  font-family: sasafude, sans-serif;
   font-weight: 400;
   font-style: normal;
 }

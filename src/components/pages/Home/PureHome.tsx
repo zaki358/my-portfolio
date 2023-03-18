@@ -8,12 +8,6 @@ export const PureHome = () => {
 
   const textRef = useRef<HTMLDivElement>(null!);
 
-  useEffect(() => {
-    gsap.registerPlugin(TextPlugin);
-    gsap.registerPlugin(ScrollTrigger);
-    gsap.to("h1", { duration: 3, text: "this is a to tween" });
-    gsap.from("h2", { duration: 3, text: "" });
-  }, []);
 
   return (
     <SSection>
