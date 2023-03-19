@@ -17,4 +17,9 @@ const defaultFont = {
   fontStyle: "normal",
 };
 
-export { mixin, defaultFont };
+const color = {
+  bloodColor1: "#520400",
+  bloodColor2: "#BD0900",
+};
+
+export { mixin, defaultFont, color };

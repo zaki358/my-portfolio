@@ -1,12 +1,7 @@
-import React, { useContext, useEffect, useRef } from "react";
 import styled from "styled-components";
-import { gsap, TextPlugin, ScrollTrigger } from "gsap/all";
-import { HomeSwitchContext } from "../../../providers/HomeSwitchProvider";
 
 export const PureHome = () => {
-  const { switchNumber, setSwitchNumber } = useContext(HomeSwitchContext);
 
-  const textRef = useRef<HTMLDivElement>(null!);
 
 
   return (

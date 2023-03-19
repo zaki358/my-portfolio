@@ -1,7 +1,3 @@
-import React from 'react'
-
-export const CaveatHome = () => {
-  return (
-    <div>CaveatHome</div>
-  )
-}
+export const CaveatHome: React.FC = () => {
+  return <div>CaveatHome</div>;
+};

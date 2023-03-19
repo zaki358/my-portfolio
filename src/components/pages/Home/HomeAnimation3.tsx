@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { HomeSwitchContext } from "../../../providers/HomeSwitchProvider";
 
-export const ImagHome = () => {
+export const HomeAnimation3 = () => {
   const { setSwitchNumber } = useContext(HomeSwitchContext);
 
   useEffect(() => {

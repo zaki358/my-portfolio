@@ -1,23 +1,21 @@
-import React, { useContext, FC, memo } from "react";
-import styled from "styled-components";
+import React, { useContext, memo } from "react";
+
 import { HomeSwitchContext } from "../../providers/HomeSwitchProvider";
 import { Header } from "../templates/Header";
-import { ImagHome } from "./Home/ImagHome";
 import { PureHome } from "./Home/PureHome";
-import { TextAnimationHome } from "./Home/TextAnimationHome";
+import { HomeAnimation1 } from "./Home/HomeAnimation1";
+import { HomeAnimation2 } from "./Home/HomeAnimation2";
+import { HomeAnimation3 } from "./Home/HomeAnimation3";
 
-export const Home: FC = memo(() => {
+export const Home: React.FC = memo(() => {
   const { switchNumber } = useContext(HomeSwitchContext);
   return (
     <>
       {switchNumber === 2 && <Header />}
-      {switchNumber === 0 && <TextAnimationHome />}
-      {switchNumber === 1 && <ImagHome />}
-      {switchNumber === 2 && <PureHome />}
+      {switchNumber === 0 && <HomeAnimation1 />}
+      {switchNumber === 1 && <HomeAnimation2 />}
+      {switchNumber === 2 && <HomeAnimation3 />}
+      {switchNumber === 3 && <PureHome />}
     </>
   );
 });
-
-const SSection = styled.section`
-  padding-top: 60px;
-`;

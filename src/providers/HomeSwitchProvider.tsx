@@ -1,29 +1,20 @@
-import React, {
-  createContext,
-  useState,
-  ReactNode,
-  FC,
-  Dispatch,
-  SetStateAction,
-} from "react";
-
-// type HomeSwitch = {
-//   switchNumber: number | null;
-//   setSwitchNumber: () => void;
-// };
+import React, { createContext, useState } from "react";
+import type { ReactNode, Dispatch, SetStateAction } from "react";
 
 type Props = {
   children: ReactNode;
 };
 
-export const HomeSwitchContext = createContext(
-  {} as {
-    switchNumber: number;
-    setSwitchNumber: Dispatch<SetStateAction<number>>;
-  }
+type HomeSwitchContextValue = {
+  switchNumber: number;
+  setSwitchNumber: Dispatch<SetStateAction<number>>;
+};
+
+export const HomeSwitchContext = createContext<HomeSwitchContextValue>(
+  {} as HomeSwitchContextValue
 );
 
-export const HomeSwitchProvider: FC<Props> = ({ children }) => {
+export const HomeSwitchProvider: React.FC<Props> = ({ children }) => {
   const [switchNumber, setSwitchNumber] = useState<number>(0);
   return (
     <HomeSwitchContext.Provider value={{ switchNumber, setSwitchNumber }}>
@@ -31,3 +22,8 @@ export const HomeSwitchProvider: FC<Props> = ({ children }) => {
     </HomeSwitchContext.Provider>
   );
 };
+
+// type HomeSwitch = {
+//   switchNumber: number | null;
+//   setSwitchNumber: () => void;
+// };

@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const About: React.FC = memo(() => {
   return <SSection>About.</SSection>;
@@ -7,4 +7,4 @@ export const About: React.FC = memo(() => {
 
 const SSection = styled.section`
   padding-top: 60px;
-`
+`;
