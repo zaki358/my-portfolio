@@ -1,28 +1,46 @@
 import React, { memo, useEffect, useRef, useContext } from "react";
 import gsap from "gsap";
+import { RoughEase } from "gsap/EasePack";
+// import { CSSRulePlugin } from "gsap/CSSRulePlugin";
 import styled from "styled-components";
+import { useSound } from "../../../hooks/useSound";
 
 import { color, defaultFont } from "../../../style/foundations/mixin";
 import { HomeSwitchContext } from "../../../providers/HomeSwitchProvider";
 
-// import { HomeSwitchContext } from "../../../providers/HomeSwitchProvider";
-
 export const HomeAnimation1: React.FC = memo(() => {
   const { setSwitchNumber } = useContext(HomeSwitchContext);
   const refBox = useRef<HTMLDivElement>(null!);
+  const { playSound } = useSound("/public/music/nigasanai.wav");
 
   useEffect(() => {
     const box = refBox.current;
-    const tl = gsap.timeline({ repeat: 0, delay: 2 });
-    console.log(tl);
+    // const tl = gsap.timeline({ repeat: 0, delay: 2 });
+    // console.log(tl);
     gsap.from(box, {
-      y: "-60%",
+      y: 30,
       opacity: 0,
       duration: 2,
     });
   }, []);
 
-  // const { setSwitchNumber } = useContext(HomeSwitchContext);
+  const onClickAnimation = async () => {
+    const box = refBox.current;
+    const tl = gsap.timeline();
+    await playSound();
+    tl.to(box, {
+      delay: 2.5,
+      duration: 0.1,
+      yoyo: true,
+      repeat: -1,
+      x: () => Math.random() * 500 - 5,
+      y: () => Math.random() * 500 - 5,
+      ease: RoughEase.ease.config({ strength: 8, points: 20 }),
+    });
+    setTimeout(() => {
+      setSwitchNumber(1);
+    }, 3000);
+  };
 
   return (
     <SPositonDiv>
@@ -34,10 +52,7 @@ export const HomeAnimation1: React.FC = memo(() => {
             viewBox="0 0 512 512"
           >
             <g>
-              <path
-                d="M505.095,407.125L300.77,53.208c-9.206-15.944-26.361-25.849-44.774-25.849   c-18.412,0-35.552,9.905-44.751,25.849L6.905,407.109c-9.206,15.944-9.206,35.746,0,51.69   c9.206,15.944,26.354,25.842,44.758,25.842h408.674c18.405,0,35.568-9.897,44.759-25.842   C514.302,442.855,514.302,423.053,505.095,407.125z M256.004,426.437c-17.668,0-32.013-14.33-32.013-32.004   c0-17.668,14.345-31.997,32.013-31.997c17.667,0,31.997,14.329,31.997,31.997C288.001,412.108,273.671,426.437,256.004,426.437z    M275.72,324.011c0,10.89-8.834,19.709-19.716,19.709c-10.898,0-19.717-8.818-19.717-19.709l-12.296-144.724   c0-17.676,14.345-32.005,32.013-32.005c17.667,0,31.997,14.33,31.997,32.005L275.72,324.011z"
-                // style={{ fill: "rgb(75, 75, 75)" }}
-              />
+              <path d="M505.095,407.125L300.77,53.208c-9.206-15.944-26.361-25.849-44.774-25.849   c-18.412,0-35.552,9.905-44.751,25.849L6.905,407.109c-9.206,15.944-9.206,35.746,0,51.69   c9.206,15.944,26.354,25.842,44.758,25.842h408.674c18.405,0,35.568-9.897,44.759-25.842   C514.302,442.855,514.302,423.053,505.095,407.125z M256.004,426.437c-17.668,0-32.013-14.33-32.013-32.004   c0-17.668,14.345-31.997,32.013-31.997c17.667,0,31.997,14.329,31.997,31.997C288.001,412.108,273.671,426.437,256.004,426.437z    M275.72,324.011c0,10.89-8.834,19.709-19.716,19.709c-10.898,0-19.717-8.818-19.717-19.709l-12.296-144.724   c0-17.676,14.345-32.005,32.013-32.005c17.667,0,31.997,14.33,31.997,32.005L275.72,324.011z" />
             </g>
           </svg>
         </SSVGDiv>
@@ -48,7 +63,7 @@ export const HomeAnimation1: React.FC = memo(() => {
           </p>
         </STextDiv>
         <SButtonDiv>
-          <button onClick={() => setSwitchNumber(1)}>進む</button>
+          <button onClick={onClickAnimation}>進む</button>
           <button onClick={() => setSwitchNumber(3)}>SKIP</button>
         </SButtonDiv>
       </SContanerDiv>
@@ -57,7 +72,9 @@ export const HomeAnimation1: React.FC = memo(() => {
 });
 
 const SPositonDiv = styled.div`
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow-y: hidden;
   height: 100vh;
   width: 100vw;
@@ -65,10 +82,6 @@ const SPositonDiv = styled.div`
 `;
 
 const SContanerDiv = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   border: solid 3px;
   border-color: ${color.bloodColor1};
   border-radius: 24px;
@@ -81,9 +94,6 @@ const SContanerDiv = styled.div`
   grid-row-gap: 16px;
   place-items: center;
   padding: 16px;
-  -moz-box-shadow: 10px 9px 12px 0px ${color.bloodColor1};
-  -webkit-box-shadow: 10px 9px 12px 0px ${color.bloodColor1};
-  -ms-box-shadow: 10px 9px 12px 0px ${color.bloodColor1};
   box-shadow: 10px 9px 12px 0px ${color.bloodColor1};
 `;
 
