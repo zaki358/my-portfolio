@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import type { FC, MouseEvent } from "react";
 import styled from "styled-components";
 import gsap from "gsap";
@@ -8,17 +8,16 @@ import { color } from "../../../style/foundations/mixin";
 import { HomeSwitchContext } from "../../../providers/HomeSwitchProvider";
 
 export const HomeAnimation3: FC = () => {
-  const refBox = useRef<HTMLDivElement>(null!);
+  const refLightCursor = useRef<HTMLDivElement>(null!);
   const refTextSmall = useRef<HTMLDivElement>(null!);
   const refTextMedium = useRef<HTMLDivElement>(null!);
   const refTextLarge = useRef<HTMLDivElement>(null!);
   const refTextMain = useRef<HTMLDivElement>(null!);
-  const audioRef = useRef<HTMLAudioElement>(null!);
   const { setSwitchNumber } = useContext(HomeSwitchContext);
   const { playSound } = useSound("/public/music/mitana.wav");
 
   const mouseMove = (e: MouseEvent): void => {
-    const box = refBox.current;
+    const box = refLightCursor.current;
     const mouseX = e.clientX;
     const mouseY = e.clientY;
     gsap.to(box, {
@@ -27,18 +26,33 @@ export const HomeAnimation3: FC = () => {
     });
   };
 
+  // useEffect(() => {
+  //   gsap.set(refLightCursor.current, { xPercent: -50, yPercent: -50 });
+
+  //   const moveMouse = (e: MouseEvent) => {
+  //     gsap.to(refLightCursor.current, {
+  //       x: e.clientX,
+  //       y: e.clientY,
+  //       duration: 0.3,
+  //     });
+  //   };
+
+  //   window.addEventListener("mousemove", moveMouse);
+
+  //   return () => {
+  //     window.removeEventListener("mousemove", moveMouse);
+  //   };
+  // }, []);
+
   const FadeInLight = (): ((event: MouseEvent, el: HTMLElement) => void) => {
     let count: number = 0;
     const arry = new Set();
     const FadeInText = (event: MouseEvent, el: HTMLElement) => {
-      const box = refBox.current;
       const mainText = refTextMain.current;
       const tl = gsap.timeline({ repeat: 0 });
       if (count === 0 && arry.size === 0) {
         count++;
         arry.add(el);
-        console.log(el);
-        console.log(el.getBoundingClientRect());
         tl.to(el, {
           opacity: 1,
           scale: 2,
@@ -86,16 +100,33 @@ export const HomeAnimation3: FC = () => {
 
   const fadeIn = FadeInLight();
 
+  const moveEvent = (
+    e: MouseEvent,
+    element: HTMLElement,
+    cursor: HTMLElement
+  ) => {
+    const rect = element.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    gsap.to(cursor, {
+      x: centerX - 100,
+      y: centerY - 100,
+    });
+    console.log(element);
+    e.stopPropagation();
+  };
+
   return (
     <SSection onMouseMove={mouseMove}>
       <SDivSmallArea
         ref={refTextSmall}
-        onMouseOver={(e) => {
-          console.log(refTextSmall);
-          fadeIn(e, refTextSmall.current);
-        }}
+        // onMouseOver={(e) => {
+        //   fadeIn(e, refTextSmall.current);
+        // }}
+        onMouseMove={(e) =>
+          moveEvent(e, refTextSmall.current, refLightCursor.current)
+        }
       >
-        <audio ref={audioRef} src="../../../../public/music/waraiufufu.wav" />
         <p>見たなぁ</p>
       </SDivSmallArea>
       <SDivMediumArea
@@ -115,7 +146,7 @@ export const HomeAnimation3: FC = () => {
       <SDivMainArea ref={refTextMain}>
         <p>見たなぁ</p>
       </SDivMainArea>
-      <SDivLight ref={refBox}></SDivLight>
+      <SDivLight ref={refLightCursor} />
     </SSection>
   );
 };
@@ -127,7 +158,7 @@ const SSection = styled.section`
   height: 100vh;
   background-color: black;
   overflow: hidden;
-  cursor: none;
+  /* cursor: none; */
   p {
     color: ${color.bloodColor2};
   }
@@ -142,6 +173,7 @@ const SDivLight = styled.div`
   width: 200px;
   height: 200px;
   box-shadow: inset 0px 0px 20px rgba(191, 188, 142, 0.5);
+  z-index: 100;
   &::before {
     content: "";
     display: block;
@@ -162,10 +194,18 @@ const SDivLight = styled.div`
 
 const SDivSmallArea = styled.div`
   position: absolute;
+  width: 400px;
+  height: 400px;
+  background-color: aqua;
   top: 20%;
   left: 15%;
-  z-index: 10;
-  /* opacity: 0; */
+  z-index: 9999;
+  opacity: 0;
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+  p {
+  }
 `;
 const SDivMediumArea = styled.div`
   position: absolute;
@@ -275,3 +315,53 @@ const SDivMainArea = styled.div`
 //   audioRef.current.play();
 //   console.log("music");
 // }
+
+// // const targetElement = document.getElementById("targetElement");
+// const slowdownThreshold = 100;
+
+// function getTargetElementCenter(targetElement: HTMLElement) {
+//   const rect = targetElement.getBoundingClientRect();
+//   return {
+//     x: rect.left + rect.width / 2,
+//     y: rect.top + rect.height / 2,
+//   };
+// }
+
+// function getDistanceBetweenPoints(
+//   x1: number,
+//   y1: number,
+//   x2: number,
+//   y2: number
+// ) {
+//   return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+// }
+
+// const move = (
+//   event: MouseEvent,
+//   callback: (targetElement: HTMLElement) => { x: number; y: number },
+//   callback2: (x1: number, y1: number, x2: number, y2: number) => number,
+//   elemnt: HTMLElement
+// ) => {
+//   const customCursor = refLightCursor.current;
+//   const { clientX, clientY } = event;
+//   const { x: centerX, y: centerY } = callback(elemnt);
+//   console.log(elemnt.getBoundingClientRect());
+//   const distance = callback2(clientX, clientY, centerX, centerY);
+
+//   if (distance < slowdownThreshold) {
+//     const slowdownFactor = distance / slowdownThreshold;
+//     const cursorX = centerX + slowdownFactor * (clientX - centerX);
+//     const cursorY = centerY + slowdownFactor * (clientY - centerY);
+//     gsap.to(customCursor, {
+//       x: cursorX - customCursor.offsetWidth / 2,
+//       y: cursorY - customCursor.offsetHeight / 2,
+//       duration: 0.3,
+//     });
+//   } else {
+//     gsap.to(customCursor, {
+//       x: clientX - customCursor.offsetWidth / 2,
+//       y: clientY - customCursor.offsetHeight / 2,
+//       duration: 0.3,
+//     });
+//   }
+// };
