@@ -16,6 +16,15 @@ export const HomeAnimation3: FC = () => {
   const { setSwitchNumber } = useContext(HomeSwitchContext);
   const { playSound } = useSound("/public/music/mitana.wav");
 
+  useEffect(() => {
+    const box = refLightCursor.current;
+    gsap.to(box, {
+      x: 10,
+      y: 10,
+    });
+  }, []);
+
+  
   const mouseMove = (e: MouseEvent): void => {
     const box = refLightCursor.current;
     const mouseX = e.clientX;
@@ -26,120 +35,74 @@ export const HomeAnimation3: FC = () => {
     });
   };
 
-  // useEffect(() => {
-  //   gsap.set(refLightCursor.current, { xPercent: -50, yPercent: -50 });
-
-  //   const moveMouse = (e: MouseEvent) => {
-  //     gsap.to(refLightCursor.current, {
-  //       x: e.clientX,
-  //       y: e.clientY,
-  //       duration: 0.3,
-  //     });
-  //   };
-
-  //   window.addEventListener("mousemove", moveMouse);
-
-  //   return () => {
-  //     window.removeEventListener("mousemove", moveMouse);
-  //   };
-  // }, []);
-
-  const FadeInLight = (): ((event: MouseEvent, el: HTMLElement) => void) => {
-    let count: number = 0;
-    const arry = new Set();
-    const FadeInText = (event: MouseEvent, el: HTMLElement) => {
-      const mainText = refTextMain.current;
-      const tl = gsap.timeline({ repeat: 0 });
-      if (count === 0 && arry.size === 0) {
-        count++;
-        arry.add(el);
-        tl.to(el, {
+  const fadeInAnimationInitialize = () => {
+    let animationCount = 0;
+    let judge = false;
+    const fadeInAnimation = (el: HTMLElement, e: MouseEvent) => {
+      const cursor = refLightCursor.current;
+      const rect = el.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const tl = gsap.timeline({
+        repeat: 0,
+      });
+      tl.to(cursor, {
+        x: centerX - 100,
+        y: centerY - 100,
+      });
+      tl.to(el, {
+        opacity: 1,
+        scale: 2,
+      });
+      tl.to(el, {
+        display: "none",
+        onStart: () => {
+          judge = false;
+        },
+        onComplete: () => {
+          if (!judge) {
+            animationCount++;
+            console.log(animationCount);
+            judge = true;
+          }
+        },
+      });
+      if (animationCount === 2) {
+        console.log("count");
+        tl.to(refTextMain.current, {
           opacity: 1,
-          scale: 2,
+          scale: 4,
+          onStart: () => {
+            playSound();
+          },
         });
-        tl.to(el, {
-          opacity: 0,
-        });
-      } else if (count === 1) {
-        arry.add(el);
-        if (arry.size === 2) {
-          count++;
-          tl.to(el, {
-            opacity: 1,
-            scale: 3,
-          });
-          tl.to(el, {
-            opacity: 0,
-          });
-        }
-      } else if (count === 2) {
-        arry.add(el);
-        if (arry.size === 3) {
-          count++;
-          tl.to(el, {
-            opacity: 1,
-            scale: 4,
-          });
-          tl.to(el, {
-            opacity: 0,
-          });
-          tl.to(mainText, {
-            delay: 3,
-            duration: 5,
-            opacity: 1,
-            scale: 10,
-            onStart: () => {
-              void playSound();
-            },
-          });
-        }
       }
+      e.stopPropagation();
     };
-    return FadeInText;
+    return fadeInAnimation;
   };
 
-  const fadeIn = FadeInLight();
-
-  const moveEvent = (
-    e: MouseEvent,
-    element: HTMLElement,
-    cursor: HTMLElement
-  ) => {
-    const rect = element.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    gsap.to(cursor, {
-      x: centerX - 100,
-      y: centerY - 100,
-    });
-    console.log(element);
-    e.stopPropagation();
-  };
-
+  const animation = fadeInAnimationInitialize();
   return (
     <SSection onMouseMove={mouseMove}>
       <SDivSmallArea
         ref={refTextSmall}
-        // onMouseOver={(e) => {
-        //   fadeIn(e, refTextSmall.current);
-        // }}
-        onMouseMove={(e) =>
-          moveEvent(e, refTextSmall.current, refLightCursor.current)
-        }
+        onMouseEnter={(e) => animation(refTextSmall.current, e)}
+        onMouseMove={(e) => e.stopPropagation()}
       >
         <p>見たなぁ</p>
       </SDivSmallArea>
       <SDivMediumArea
         ref={refTextMedium}
-        onMouseOver={(e) => {
-          fadeIn(e, refTextMedium.current);
-        }}
+        onMouseEnter={(e) => animation(refTextMedium.current, e)}
+        onMouseMove={(e) => e.stopPropagation()}
       >
         <p>見たなぁ</p>
       </SDivMediumArea>
       <SDivLargeArea
         ref={refTextLarge}
-        onMouseOver={(e) => fadeIn(e, refTextLarge.current)}
+        onMouseEnter={(e) => animation(refTextLarge.current, e)}
+        onMouseMove={(e) => e.stopPropagation()}
       >
         <p>見たなぁ</p>
       </SDivLargeArea>
@@ -196,30 +159,38 @@ const SDivSmallArea = styled.div`
   position: absolute;
   width: 400px;
   height: 400px;
-  background-color: aqua;
   top: 20%;
   left: 15%;
   z-index: 9999;
-  opacity: 0;
-  /* display: flex;
+  opacity: 1;
+  display: flex;
   align-items: center;
-  justify-content: center; */
-  p {
-  }
+  justify-content: center;
+  opacity: 0;
 `;
 const SDivMediumArea = styled.div`
   position: absolute;
   top: 60%;
   left: 70%;
-  z-index: 10;
-  /* opacity: 0; */
+  width: 200px;
+  height: 200px;
+  z-index: 9999;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 const SDivLargeArea = styled.div`
   position: absolute;
-  top: 90%;
+  top: 80%;
   left: 10%;
-  z-index: 10;
-  /* opacity: 0; */
+  width: 200px;
+  height: 200px;
+  z-index: 9999;
+  opacity: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 const SDivMainArea = styled.div`
   position: absolute;
