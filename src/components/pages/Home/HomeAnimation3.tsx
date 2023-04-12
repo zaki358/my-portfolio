@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef} from "react";
 import type { FC, MouseEvent } from "react";
 import styled from "styled-components";
 import gsap from "gsap";
@@ -24,7 +24,6 @@ export const HomeAnimation3: FC = () => {
     });
   }, []);
 
-  
   const mouseMove = (e: MouseEvent): void => {
     const box = refLightCursor.current;
     const mouseX = e.clientX;
@@ -38,7 +37,7 @@ export const HomeAnimation3: FC = () => {
   const fadeInAnimationInitialize = () => {
     let animationCount = 0;
     let judge = false;
-    const fadeInAnimation = (el: HTMLElement, e: MouseEvent) => {
+    const fadeInAnimation = (el: HTMLElement) => {
       const cursor = refLightCursor.current;
       const rect = el.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
@@ -68,40 +67,45 @@ export const HomeAnimation3: FC = () => {
         },
       });
       if (animationCount === 2) {
-        console.log("count");
         tl.to(refTextMain.current, {
+          delay: 1,
+          duration: 3,
           opacity: 1,
           scale: 4,
           onStart: () => {
-            playSound();
+            void playSound();
+          },
+          onComplete: () => {
+            setTimeout(() => {
+              setSwitchNumber(3);
+            }, 5000);
           },
         });
       }
-      e.stopPropagation();
     };
     return fadeInAnimation;
   };
-
   const animation = fadeInAnimationInitialize();
+
   return (
     <SSection onMouseMove={mouseMove}>
       <SDivSmallArea
         ref={refTextSmall}
-        onMouseEnter={(e) => animation(refTextSmall.current, e)}
+        onMouseEnter={() => animation(refTextSmall.current)}
         onMouseMove={(e) => e.stopPropagation()}
       >
         <p>見たなぁ</p>
       </SDivSmallArea>
       <SDivMediumArea
         ref={refTextMedium}
-        onMouseEnter={(e) => animation(refTextMedium.current, e)}
+        onMouseEnter={() => animation(refTextMedium.current)}
         onMouseMove={(e) => e.stopPropagation()}
       >
         <p>見たなぁ</p>
       </SDivMediumArea>
       <SDivLargeArea
         ref={refTextLarge}
-        onMouseEnter={(e) => animation(refTextLarge.current, e)}
+        onMouseEnter={() => animation(refTextLarge.current)}
         onMouseMove={(e) => e.stopPropagation()}
       >
         <p>見たなぁ</p>
@@ -121,7 +125,7 @@ const SSection = styled.section`
   height: 100vh;
   background-color: black;
   overflow: hidden;
-  /* cursor: none; */
+  cursor: none;
   p {
     color: ${color.bloodColor2};
   }
@@ -162,7 +166,6 @@ const SDivSmallArea = styled.div`
   top: 20%;
   left: 15%;
   z-index: 9999;
-  opacity: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -175,10 +178,10 @@ const SDivMediumArea = styled.div`
   width: 200px;
   height: 200px;
   z-index: 9999;
-  opacity: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 0;
 `;
 const SDivLargeArea = styled.div`
   position: absolute;
@@ -187,10 +190,10 @@ const SDivLargeArea = styled.div`
   width: 200px;
   height: 200px;
   z-index: 9999;
-  opacity: 1;
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 0;
 `;
 const SDivMainArea = styled.div`
   position: absolute;
@@ -200,139 +203,3 @@ const SDivMainArea = styled.div`
   z-index: 10;
   opacity: 0;
 `;
-
-// //ポインタロック開始
-// function ElementRequestPointerLock(element:HTMLElement) {
-//   const list: string[] = [
-//     "requestPointerLock",
-//     "webkitRequestPointerLock",
-//     "mozRequestPointerLock",
-//   ];
-//   let i;
-//   const num = list.length;
-//   for (i = 0; i < num; i++) {
-//     if (element[list[i]]) {
-//       element[list[i]]();
-//       return true;
-//     }
-//   }
-//   return false;
-// }
-
-// //ポインタロック終了
-// function DocumentExitPointerLock(document_obj): boolean {
-//   const list: string[] = [
-//     "exitPointerLock",
-//     "webkitExitPointerLock",
-//     "mozExitPointerLock",
-//   ];
-//   let i;
-//   const num = list.length;
-//   for (i = 0; i < num; i++) {
-//     if (document_obj[list[i]]) {
-//       document_obj[list[i]]();
-//       return true;
-//     }
-//   }
-//   return false;
-// }
-
-// el.onmouseenter = function (e) {
-//   ElementRequestPointerLock(el);
-//   setTimeout(() => {
-//     DocumentExitPointerLock(document);
-//   }, 5000);
-// };
-
-//特定の要素に近づいたらカーソルをゆっくりもしくは止める
-// var mouseX = 0, mouseY = 0;
-// document.addEventListener("mousemove", function(event) {
-//   mouseX = event.clientX;
-//   mouseY = event.clientY;
-// });
-
-// var targetElement = document.getElementById("target");
-// var threshold = 100;
-
-// function animateCursor() {
-//   var boundingRect = targetElement.getBoundingClientRect();
-//   var distance = Math.sqrt(
-//     Math.pow(mouseX - boundingRect.left - boundingRect.width / 2, 2) +
-//     Math.pow(mouseY - boundingRect.top - boundingRect.height / 2, 2)
-//   );
-//   if (distance < threshold) {
-//     var scale = 1 - distance / threshold;
-//     targetElement.style.transform = "scale(" + scale + ")";
-//   } else {
-//     targetElement.style.transform = "scale(1)";
-//   }
-//   requestAnimationFrame(animateCursor);
-// }
-// animateCursor();
-
-// useEffect(() => {
-//   playSound();
-// }, []);
-// const musicPlay = async () => {
-//   const audio = new Audio("../../../../public/music/waraiufufu.wav");
-//   await audio.play();
-// };
-
-// const sound: Howl = new Howl({
-//   src: ["../../../../public/music/waraiufufu.wav"],
-// });
-
-// function handleMouseOver() {
-//   audioRef.current.play();
-//   console.log("music");
-// }
-
-// // const targetElement = document.getElementById("targetElement");
-// const slowdownThreshold = 100;
-
-// function getTargetElementCenter(targetElement: HTMLElement) {
-//   const rect = targetElement.getBoundingClientRect();
-//   return {
-//     x: rect.left + rect.width / 2,
-//     y: rect.top + rect.height / 2,
-//   };
-// }
-
-// function getDistanceBetweenPoints(
-//   x1: number,
-//   y1: number,
-//   x2: number,
-//   y2: number
-// ) {
-//   return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-// }
-
-// const move = (
-//   event: MouseEvent,
-//   callback: (targetElement: HTMLElement) => { x: number; y: number },
-//   callback2: (x1: number, y1: number, x2: number, y2: number) => number,
-//   elemnt: HTMLElement
-// ) => {
-//   const customCursor = refLightCursor.current;
-//   const { clientX, clientY } = event;
-//   const { x: centerX, y: centerY } = callback(elemnt);
-//   console.log(elemnt.getBoundingClientRect());
-//   const distance = callback2(clientX, clientY, centerX, centerY);
-
-//   if (distance < slowdownThreshold) {
-//     const slowdownFactor = distance / slowdownThreshold;
-//     const cursorX = centerX + slowdownFactor * (clientX - centerX);
-//     const cursorY = centerY + slowdownFactor * (clientY - centerY);
-//     gsap.to(customCursor, {
-//       x: cursorX - customCursor.offsetWidth / 2,
-//       y: cursorY - customCursor.offsetHeight / 2,
-//       duration: 0.3,
-//     });
-//   } else {
-//     gsap.to(customCursor, {
-//       x: clientX - customCursor.offsetWidth / 2,
-//       y: clientY - customCursor.offsetHeight / 2,
-//       duration: 0.3,
-//     });
-//   }
-// };

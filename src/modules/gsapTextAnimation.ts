@@ -13,14 +13,13 @@ export const gsapTextAnimation = (
     "M0,0 C0.266,0.412 0.144,0.594 0.516,0.814 0.67,0.905 0.78,1 1,1 "
   );
   const tl = gsap.timeline({ repeat: 0, delay: 2 });
-  // console.log(tl)
   tl.to(".text1", {
     duration: 8,
     text: { value: text },
     ease: "custom",
   });
   tl.to(".text2", {
-    duration: 2,
+    duration: 6,
     text: { value: text2 },
     ease: "none",
     onComplete: () => {

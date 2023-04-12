@@ -18,7 +18,7 @@ export const HomeAnimation2: React.FC = () => {
     const text2 = refText2.current.innerHTML;
     refText.current.innerHTML = "";
     refText2.current.innerHTML = "";
-    gsapTextAnimation(text, text2, () => setSwitchNumber(2));
+    gsapTextAnimation(text, text2, () => console.log());
   }, []);
 
   const openingSkip = () => setSwitchNumber(3);
@@ -26,19 +26,17 @@ export const HomeAnimation2: React.FC = () => {
     <SSection>
       <SPositonDiv>
         <p className="text1" ref={refText}>
-          ねぇ僕のWebサイト見てよ
+          ヤマザキのWebサイトへようこそ
           <br />
-          えっ！？見たくない？
+          どうぞごゆっくり閲覧して下さい。
           <br />
-          なんで・・・
+          えっ！？見たくない。なんで
           <br />
-          見てくれるって言ったじゃん。嘘つき
+          どうしてなの・・・
         </p>
         <p className="text2 text-left" ref={refText2}>
-          嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき嘘つき
-          <span>ああああ</span>
+          許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さない許さななななななななななななななななななななななななななななななななななななななななななななななななななななななななななななななななななななななな險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔
         </p>
-        {/* <p>嘘つき</p> */}
       </SPositonDiv>
       <button onClick={openingSkip}>skip</button>
     </SSection>
