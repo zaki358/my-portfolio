@@ -18,10 +18,10 @@ export const HomeAnimation2: React.FC = () => {
     const text2 = refText2.current.innerHTML;
     refText.current.innerHTML = "";
     refText2.current.innerHTML = "";
-    gsapTextAnimation(text, text2, () => console.log());
+    gsapTextAnimation(text, text2, openingSkip);
   }, []);
 
-  const openingSkip = () => setSwitchNumber(3);
+  const openingSkip = () => setSwitchNumber(2);
   return (
     <SSection>
       <SPositonDiv>

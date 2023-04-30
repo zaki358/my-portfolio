@@ -13,8 +13,8 @@ export const Home: FC = memo(() => {
   const { switchNumber } = useContext(HomeSwitchContext);
   return (
     <>
-      {switchNumber === 3 && <HomeAnimation1 />}
-      {switchNumber === 0 && <HomeAnimation2 />}
+      {switchNumber === 0 && <HomeAnimation1 />}
+      {switchNumber === 1 && <HomeAnimation2 />}
       {switchNumber === 2 && <HomeAnimation3 />}
       {switchNumber === 3 && <HomeAnimation4 />}
       {switchNumber === 4 && (

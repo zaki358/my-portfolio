@@ -169,7 +169,7 @@ const SDivSmallArea = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;
+  opacity: 0.5;
 `;
 const SDivMediumArea = styled.div`
   position: absolute;
@@ -181,7 +181,7 @@ const SDivMediumArea = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;
+  opacity: 0.5;
 `;
 const SDivLargeArea = styled.div`
   position: absolute;
@@ -193,7 +193,7 @@ const SDivLargeArea = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;
+  opacity: 0.5;
 `;
 const SDivMainArea = styled.div`
   position: absolute;
@@ -201,5 +201,5 @@ const SDivMainArea = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
-  opacity: 0;
+  opacity: 0.1;
 `;

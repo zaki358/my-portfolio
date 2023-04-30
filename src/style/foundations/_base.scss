@@ -1,6 +1,7 @@
 :root {
   color-scheme: dark;
-  max-width: 1440px;
+  // max-width: 1440px;
+  width: 100%;
   height: auto;
   background-color: black;
   margin: auto;
@@ -35,3 +36,8 @@ li {
   font-style: normal;
 }
 
+.blood {
+  height: auto;
+  width: 200px;
+  display: inline-block;
+}
