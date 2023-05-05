@@ -10,9 +10,10 @@ export const useSound = (soundFile: string) => {
     };
   }, [audio]);
 
-  const playSound = async () => {
+  const playSound = async (play: boolean = true) => {
     try {
-      await audio.play();
+      if (play) await audio.play();
+      else audio.pause();
     } catch (error) {
       console.error("Error playing audio:", error);
     }
