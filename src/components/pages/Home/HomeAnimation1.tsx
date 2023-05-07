@@ -5,7 +5,7 @@ import { RoughEase } from "gsap/EasePack";
 import styled from "styled-components";
 import { useSound } from "../../../hooks/useSound";
 
-import { color, defaultFont } from "../../../style/foundations/mixin";
+import { color, defaultFont, mixin } from "../../../style/foundations/mixin";
 import { HomeSwitchContext } from "../../../providers/HomeSwitchProvider";
 
 export const HomeAnimation1: React.FC = memo(() => {
@@ -27,19 +27,22 @@ export const HomeAnimation1: React.FC = memo(() => {
   const onClickAnimation = async () => {
     const box = refBox.current;
     const tl = gsap.timeline();
-    await playSound();
+    void playSound();
     tl.to(box, {
-      delay: 2.5,
+      delay: 3.5,
       duration: 0.1,
       yoyo: true,
-      repeat: -1,
+      repeat: 10,
       x: () => Math.random() * 500 - 5,
       y: () => Math.random() * 500 - 5,
       ease: RoughEase.ease.config({ strength: 8, points: 20 }),
+      onComplete: () => {
+        console.log("完了")
+        setTimeout(() => {
+          setSwitchNumber(1);
+        }, 1000);
+      },
     });
-    setTimeout(() => {
-      setSwitchNumber(1);
-    }, 3000);
   };
 
   return (
@@ -64,7 +67,7 @@ export const HomeAnimation1: React.FC = memo(() => {
         </STextDiv>
         <SButtonDiv>
           <button onClick={onClickAnimation}>進む</button>
-          <button onClick={() => setSwitchNumber(3)}>SKIP</button>
+          <button onClick={() => setSwitchNumber(1)}>SKIP</button>
         </SButtonDiv>
       </SContanerDiv>
     </SPositonDiv>
@@ -85,22 +88,32 @@ const SContanerDiv = styled.div`
   border: solid 3px;
   border-color: ${color.bloodColor1};
   border-radius: 24px;
-  width: 40%;
+  width: 80%;
   height: 50%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 1fr 0.4fr;
-  grid-column-gap: 16px;
-  grid-row-gap: 16px;
-  place-items: center;
   padding: 16px;
   box-shadow: 10px 9px 12px 0px ${color.bloodColor1};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  ${mixin.tabletScreen()} {
+    width: 40%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr 0.4fr;
+    grid-column-gap: 16px;
+    grid-row-gap: 16px;
+    place-items: center;
+    gap: 0px;
+  }
 `;
 
 const SSVGDiv = styled.div`
   width: 100px;
   height: 100px;
-  grid-area: 1 / 1 / 2 / 2;
+  ${mixin.tabletScreen()} {
+    grid-area: 1 / 1 / 2 / 2;
+  }
   svg {
   }
   path {
@@ -109,13 +122,21 @@ const SSVGDiv = styled.div`
 `;
 
 const STextDiv = styled.div`
-  grid-area: 1 / 2 / 2 / 4;
+  ${mixin.tabletScreen()} {
+    grid-area: 1 / 2 / 2 / 4;
+  }
 `;
 
 const SButtonDiv = styled.div`
-  grid-area: 2 / 1 / 3 / 4;
   display: flex;
-  gap: 50px;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  ${mixin.tabletScreen()} {
+    grid-area: 2 / 1 / 3 / 4;
+    flex-direction: row;
+    gap: 50px;
+  }
   button {
     background-color: ${color.bloodColor1};
     border-radius: 8px;

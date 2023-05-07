@@ -1,6 +1,6 @@
 const scrennSize: { pc: number; tablet: number } = {
   pc: 1280,
-  tablet: 960,
+  tablet: 768,
 };
 
 const tabletScreen = (): string => `@media (min-width: ${scrennSize.tablet}px)`;

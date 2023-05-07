@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef} from "react";
+import { useContext, useEffect, useRef } from "react";
 import type { FC, MouseEvent } from "react";
 import styled from "styled-components";
 import gsap from "gsap";
@@ -78,7 +78,7 @@ export const HomeAnimation3: FC = () => {
           onComplete: () => {
             setTimeout(() => {
               setSwitchNumber(3);
-            }, 5000);
+            }, 4000);
           },
         });
       }
@@ -93,6 +93,10 @@ export const HomeAnimation3: FC = () => {
         ref={refTextSmall}
         onMouseEnter={() => animation(refTextSmall.current)}
         onMouseMove={(e) => e.stopPropagation()}
+        onTouchMove={(e) => {
+          animation(refTextSmall.current);
+          e.stopPropagation();
+        }}
       >
         <p>見たなぁ</p>
       </SDivSmallArea>
@@ -100,6 +104,10 @@ export const HomeAnimation3: FC = () => {
         ref={refTextMedium}
         onMouseEnter={() => animation(refTextMedium.current)}
         onMouseMove={(e) => e.stopPropagation()}
+        onTouchMove={(e) => {
+          animation(refTextMedium.current);
+          e.stopPropagation();
+        }}
       >
         <p>見たなぁ</p>
       </SDivMediumArea>
@@ -107,6 +115,10 @@ export const HomeAnimation3: FC = () => {
         ref={refTextLarge}
         onMouseEnter={() => animation(refTextLarge.current)}
         onMouseMove={(e) => e.stopPropagation()}
+        onTouchMove={(e) => {
+          animation(refTextLarge.current);
+          e.stopPropagation();
+        }}
       >
         <p>見たなぁ</p>
       </SDivLargeArea>
@@ -169,7 +181,7 @@ const SDivSmallArea = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.5;
+  opacity: 0.1;
 `;
 const SDivMediumArea = styled.div`
   position: absolute;
@@ -181,7 +193,7 @@ const SDivMediumArea = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.5;
+  opacity: 0.1;
 `;
 const SDivLargeArea = styled.div`
   position: absolute;
@@ -193,7 +205,7 @@ const SDivLargeArea = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.5;
+  opacity: 0.1;
 `;
 const SDivMainArea = styled.div`
   position: absolute;

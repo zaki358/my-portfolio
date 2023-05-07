@@ -19,7 +19,7 @@ export const gsapTextAnimation = (
     ease: "custom",
   });
   tl.to(".text2", {
-    duration: 6,
+    duration: 3,
     text: { value: text2 },
     ease: "none",
     onComplete: () => {

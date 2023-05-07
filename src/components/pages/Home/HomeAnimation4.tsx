@@ -9,6 +9,7 @@ export const HomeAnimation4: FC = () => {
   const refBox = useRef<HTMLDivElement>(null!);
   const { playSound: bloodSound } = useSound("/public/music/blood01.mp3");
   const { playSound: noiseSound } = useSound("/public/music/noise.wav");
+  const { playSound: cry } = useSound("/public/music/gyaaaa.wav");
   useEffect(() => {
     bloodAnimation();
   }, []);
@@ -70,6 +71,16 @@ export const HomeAnimation4: FC = () => {
       },
       stagger: {
         each: 0.05,
+      },
+    });
+    tl.to(".blood", {
+      delay: 1,
+      duration: 2,
+      onStart: () => {
+        void cry();
+      },
+      onComplete: () => {
+        void cry(false);
       },
     });
   };
