@@ -26,7 +26,7 @@ export const HomeAnimation2: React.FC = () => {
     void playSound();
     setTimeout(() => {
       void playSound(false);
-      setSwitchNumber(2);
+      //setSwitchNumber(2);
     }, 2000);
   };
   return (
@@ -45,7 +45,7 @@ export const HomeAnimation2: React.FC = () => {
           許サナイ許サナイ許サナイ許サナイ許サナイ許サナイ許サナイ許サナイ許サナイ許サナイ許サナイ許サナイ許サナイ許サナイ險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔
         </p>
       </SPositonDiv>
-      <button onClick={openingSkip}>skip</button>
+      {/* <button onClick={openingSkip}>skip</button> */}
     </SSection>
   );
 };

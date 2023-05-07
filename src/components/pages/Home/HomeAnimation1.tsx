@@ -89,7 +89,8 @@ const SContanerDiv = styled.div`
   border-color: ${color.bloodColor1};
   border-radius: 24px;
   width: 80%;
-  height: 50%;
+  height: 36%;
+  min-height: 480px;
   padding: 16px;
   box-shadow: 10px 9px 12px 0px ${color.bloodColor1};
   display: flex;
@@ -98,6 +99,9 @@ const SContanerDiv = styled.div`
   gap: 40px;
   ${mixin.tabletScreen()} {
     width: 40%;
+    min-width: 400px;
+    height: 50%;
+    min-height: auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 1fr 0.4fr;
