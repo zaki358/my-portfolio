@@ -1,7 +1,6 @@
 import React, { memo, useEffect, useRef, useContext } from "react";
 import gsap from "gsap";
 import { RoughEase } from "gsap/EasePack";
-// import { CSSRulePlugin } from "gsap/CSSRulePlugin";
 import styled from "styled-components";
 import { useSound } from "../../../hooks/useSound";
 
@@ -15,8 +14,6 @@ export const HomeAnimation1: React.FC = memo(() => {
 
   useEffect(() => {
     const box = refBox.current;
-    // const tl = gsap.timeline({ repeat: 0, delay: 2 });
-    // console.log(tl);
     gsap.from(box, {
       y: 30,
       opacity: 0,
@@ -37,7 +34,6 @@ export const HomeAnimation1: React.FC = memo(() => {
       y: () => Math.random() * 500 - 5,
       ease: RoughEase.ease.config({ strength: 8, points: 20 }),
       onComplete: () => {
-        console.log("完了")
         setTimeout(() => {
           setSwitchNumber(1);
         }, 1000);

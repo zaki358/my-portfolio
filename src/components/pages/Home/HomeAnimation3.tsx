@@ -14,7 +14,7 @@ export const HomeAnimation3: FC = () => {
   const refTextLarge = useRef<HTMLDivElement>(null!);
   const refTextMain = useRef<HTMLDivElement>(null!);
   const { setSwitchNumber } = useContext(HomeSwitchContext);
-  const { playSound } = useSound("/public/music/mitana.wav");
+  const { playSound } = useSound("/public/music/tasukete.wav");
 
   useEffect(() => {
     const box = refLightCursor.current;
@@ -51,7 +51,7 @@ export const HomeAnimation3: FC = () => {
       });
       tl.to(el, {
         opacity: 1,
-        scale: 2,
+        scale: (animationCount + 1) * 2,
       });
       tl.to(el, {
         display: "none",
@@ -69,7 +69,7 @@ export const HomeAnimation3: FC = () => {
       if (animationCount === 2) {
         tl.to(refTextMain.current, {
           delay: 1,
-          duration: 3,
+          duration: 2,
           opacity: 1,
           scale: 4,
           onStart: () => {
@@ -78,7 +78,7 @@ export const HomeAnimation3: FC = () => {
           onComplete: () => {
             setTimeout(() => {
               setSwitchNumber(3);
-            }, 4000);
+            }, 2000);
           },
         });
       }
@@ -98,7 +98,7 @@ export const HomeAnimation3: FC = () => {
           e.stopPropagation();
         }}
       >
-        <p>見たなぁ</p>
+        <p>ねぇ</p>
       </SDivSmallArea>
       <SDivMediumArea
         ref={refTextMedium}
@@ -109,7 +109,7 @@ export const HomeAnimation3: FC = () => {
           e.stopPropagation();
         }}
       >
-        <p>見たなぁ</p>
+        <p>ねぇ</p>
       </SDivMediumArea>
       <SDivLargeArea
         ref={refTextLarge}
@@ -120,10 +120,10 @@ export const HomeAnimation3: FC = () => {
           e.stopPropagation();
         }}
       >
-        <p>見たなぁ</p>
+        <p>ねぇ</p>
       </SDivLargeArea>
       <SDivMainArea ref={refTextMain}>
-        <p>見たなぁ</p>
+        <p>助けて</p>
       </SDivMainArea>
       <SDivLight ref={refLightCursor} />
     </SSection>
@@ -181,7 +181,7 @@ const SDivSmallArea = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.1;
+  opacity: 0;
 `;
 const SDivMediumArea = styled.div`
   position: absolute;
@@ -193,7 +193,7 @@ const SDivMediumArea = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.1;
+  opacity: 0;
 `;
 const SDivLargeArea = styled.div`
   position: absolute;
@@ -205,13 +205,13 @@ const SDivLargeArea = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.1;
+  opacity: 0;
 `;
 const SDivMainArea = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 10;
-  opacity: 0.1;
+  z-index: 9999;
+  opacity: 0;
 `;

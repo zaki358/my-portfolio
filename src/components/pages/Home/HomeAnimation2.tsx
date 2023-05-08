@@ -5,6 +5,8 @@ import { useSound } from "../../../hooks/useSound";
 import { HomeSwitchContext } from "../../../providers/HomeSwitchProvider";
 import { gsapTextAnimation } from "../../../modules/gsapTextAnimation";
 
+import { mixin } from "../../../style/foundations/mixin";
+
 //gsapとstrictModdは相性が悪い
 //マウントが２回（マウント→アンマウント→マウント）されるとgsapのメソッドの挙動がおかしくなる
 
@@ -26,7 +28,7 @@ export const HomeAnimation2: React.FC = () => {
     void playSound();
     setTimeout(() => {
       void playSound(false);
-      //setSwitchNumber(2);
+      setSwitchNumber(2);
     }, 2000);
   };
   return (
@@ -65,7 +67,10 @@ const SPositonDiv = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   width: 80%;
-  text-align: center;
+  ${mixin.tabletScreen()} {
+    width: 48%;
+    text-align: center;
+  }
   .text-left {
     text-align: left;
   }
