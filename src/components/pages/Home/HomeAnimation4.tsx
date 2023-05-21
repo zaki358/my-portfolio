@@ -1,11 +1,12 @@
-import { useEffect, useRef } from "react";
+import { memo, useEffect, useRef } from "react";
 import type { FC } from "react";
 import gsap from "gsap";
 import { CustomEase } from "gsap/all";
 import styled from "styled-components";
+
 import { useSound } from "../../../hooks/useSound";
 
-export const HomeAnimation4: FC = () => {
+export const HomeAnimation4: FC = memo(() => {
   const refBox = useRef<HTMLDivElement>(null!);
   const { playSound: bloodSound } = useSound("/public/music/blood01.mp3");
   const { playSound: noiseSound } = useSound("/public/music/noise.wav");
@@ -103,7 +104,7 @@ export const HomeAnimation4: FC = () => {
       </SDivContainer>
     </>
   );
-};
+});
 
 const SDivContainer = styled.div`
   height: 100%;

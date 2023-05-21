@@ -1,16 +1,13 @@
-import { useContext, useEffect, useRef } from "react";
+import { memo, useContext, useEffect, useRef } from "react";
+import type { FC } from "react";
 import styled from "styled-components";
-import { useSound } from "../../../hooks/useSound";
 
+import { useSound } from "../../../hooks/useSound";
 import { HomeSwitchContext } from "../../../providers/HomeSwitchProvider";
 import { gsapTextAnimation } from "../../../modules/gsapTextAnimation";
-
 import { mixin } from "../../../style/foundations/mixin";
 
-//gsapとstrictModdは相性が悪い
-//マウントが２回（マウント→アンマウント→マウント）されるとgsapのメソッドの挙動がおかしくなる
-
-export const HomeAnimation2: React.FC = () => {
+export const HomeAnimation2: FC = memo(() => {
   const { setSwitchNumber } = useContext(HomeSwitchContext);
   const refText = useRef<HTMLDivElement>(null!);
   const refText2 = useRef<HTMLDivElement>(null!);
@@ -47,10 +44,9 @@ export const HomeAnimation2: React.FC = () => {
           許サナイ許サナイ許サナイ許サナイ許サナイ許サナイ許サナイ許サナイ許サナイ許サナイ許サナイ許サナイ許サナイ許サナイ險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔險ｱ縺輔
         </p>
       </SPositonDiv>
-      {/* <button onClick={openingSkip}>skip</button> */}
     </SSection>
   );
-};
+});
 
 const SSection = styled.section`
   position: relative;

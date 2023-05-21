@@ -1,13 +1,13 @@
-import { useContext, useEffect, useRef } from "react";
+import { memo, useContext, useEffect, useRef } from "react";
 import type { FC, MouseEvent } from "react";
 import styled from "styled-components";
 import gsap from "gsap";
-import { useSound } from "../../../hooks/useSound";
 
+import { useSound } from "../../../hooks/useSound";
 import { color } from "../../../style/foundations/mixin";
 import { HomeSwitchContext } from "../../../providers/HomeSwitchProvider";
 
-export const HomeAnimation3: FC = () => {
+export const HomeAnimation3: FC = memo(() => {
   const refLightCursor = useRef<HTMLDivElement>(null!);
   const refTextSmall = useRef<HTMLDivElement>(null!);
   const refTextMedium = useRef<HTMLDivElement>(null!);
@@ -128,7 +128,7 @@ export const HomeAnimation3: FC = () => {
       <SDivLight ref={refLightCursor} />
     </SSection>
   );
-};
+});
 
 const SSection = styled.section`
   position: relative;

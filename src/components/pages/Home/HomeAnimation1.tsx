@@ -1,4 +1,5 @@
-import React, { memo, useEffect, useRef, useContext } from "react";
+import { memo, useEffect, useRef, useContext } from "react";
+import type { FC } from "react";
 import gsap from "gsap";
 import { RoughEase } from "gsap/EasePack";
 import styled from "styled-components";
@@ -7,7 +8,7 @@ import { useSound } from "../../../hooks/useSound";
 import { color, defaultFont, mixin } from "../../../style/foundations/mixin";
 import { HomeSwitchContext } from "../../../providers/HomeSwitchProvider";
 
-export const HomeAnimation1: React.FC = memo(() => {
+export const HomeAnimation1: FC = memo(() => {
   const { setSwitchNumber } = useContext(HomeSwitchContext);
   const refBox = useRef<HTMLDivElement>(null!);
   const { playSound } = useSound("/public/music/nigasanai.wav");
